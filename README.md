@@ -1,6 +1,6 @@
 # ColorFool
 
-This is the official repository of [ColorFool: Semantic Adversarial Colorization](https://arxiv.org/pdf/1911.10891.pdf), a work published in The IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Seattle, Washington, USA, 14-19 June, 2020.<br>
+This is a fork of official repository of [ColorFool: Semantic Adversarial Colorization](https://arxiv.org/pdf/1911.10891.pdf), a work published in The IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Seattle, Washington, USA, 14-19 June, 2020.<br>
 
 ![Alt Text](ColorFool.gif)
 <b>Example of results</b>
@@ -9,11 +9,12 @@ This is the official repository of [ColorFool: Semantic Adversarial Colorization
 |---|---|---|---|
 | ![Original Image](Dataset/ILSVRC2012_val_00003533.JPEG) | ![Attack AlexNet](Sample_results/ILSVRC2012_val_00003533_alexnet.png) |![Attack ResNet18](Sample_results/ILSVRC2012_val_00003533_resnet18.png) | ![Attack ResNet50](Sample_results/ILSVRC2012_val_00003533_resnet50.png) |
 
+This fork is aimed to simplify integration of the model into REST API.
 
 ## Setup
 1. Download source code from GitHub
    ```
-    git clone https://github.com/smartcameras/ColorFool.git 
+    git clone https://github.com/vBazilevich/ColorFool.git
    ```
 2. Create [conda](https://docs.conda.io/en/latest/miniconda.html) virtual-environment
    ```
@@ -28,46 +29,17 @@ This is the official repository of [ColorFool: Semantic Adversarial Colorization
     pip install -r requirements.txt
    ```
 
+*Note:* you can get rid of `conda` but be ready to handle dependencies manually.
+
 
 ## Description
-The code works in two steps: 
-1. Identify image regions using semantic segmentation model
-2. Generate adversarial images via perturbing color of semantic regions in the natural color range    
+Just pass a binary array to `colorize` function from `ColorFool` module.
 
-
-### Semantic Segmentation 
-
-1. Go to Segmentation directory
-   ```
-   cd Segmentation
-   ```
-2. Download segmentation model (both encoder and decoder) from [here](https://drive.google.com/drive/folders/1FjZTweIsWWgxhXkzKHyIzEgBO5VTCe68) and locate in "models" directory.
+*Note:* to make it working you must download segmentation model (both encoder and decoder) from [here](https://drive.google.com/drive/folders/1FjZTweIsWWgxhXkzKHyIzEgBO5VTCe68) and locate in "Segmentation/models" directory.
    
 
-3. Run the segmentation for all images within Dataset directory (requires GPU)
-   ```
-   bash script.sh
-   ```
-
-The semantic regions of four categories will be saved in the Segmentation/SegmentationResults/$Dataset/ directory as a smooth mask the same size of the image with the same name as their corresponding original images
-
-### Generate ColorFool Adversarial Images
-
-1. Go to Adversarial directory
-   ```
-   cd ../Adversarial
-   ```
-2. In the script.sh set 
-(i) the name of target models for attack, and (ii) the name of the dataset.
-The current implementation supports three classifiers (Resnet18, Resnet50 and Alexnet) trained with ImageNet.
-3. Run ColorFool for all images within the Dataset directory (works in both GPU and CPU)
-   ```
-   bash script.sh
-   ```
-
-### Outputs
-* Adversarial Images saved with the same name as the clean images in Adversarial/Results/ColorFoolImgs directory;
-* Metadata with the following structure: filename, number of trials, predicted class of the clean image with its probablity and predicted class of the adversarial image with its probablity in Adversarial/Results/Logs directory.
+### Output
+Function `colorize` returns a binary array that encodes produced colorful image.
 
 
 ## Authors
@@ -77,7 +49,6 @@ The current implementation supports three classifiers (Resnet18, Resnet50 and Al
 
 
 ## References
-If you use our code, please cite the following paper:
 
       @InProceedings{shamsabadi2020colorfool,
         title = {ColorFool: Semantic Adversarial Colorization},
