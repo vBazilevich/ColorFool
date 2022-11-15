@@ -1,7 +1,7 @@
 # System libs
 import os
 import argparse
-from distutils.version import LooseVersion
+import packaging.version
 # Numerical libs
 import numpy as np
 import torch
@@ -141,7 +141,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-	assert LooseVersion(torch.__version__) >= LooseVersion('0.4.0'), \
+	assert packaging.version.parse(torch.__version__) >= packaging.version.parse('0.4.0'), \
 		'PyTorch>=0.4.0 is required'
 
 	parser = argparse.ArgumentParser()

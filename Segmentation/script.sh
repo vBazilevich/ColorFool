@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clear 
+#clear 
 
 # Path to images and results
 DATASET=../Dataset/
