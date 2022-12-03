@@ -19,7 +19,8 @@ def adversarial():
     os.chdir('Adversarial')
 
     # Run adversarial Attack
-    os.system('./script.sh')
+    print('ColorFool attacking ResNet50')
+    os.system('python -W ignore ColorFool.py --model=resnet50')
 
     # Return to the root
     os.chdir('..')
