@@ -1,7 +1,7 @@
 start: build-frontend run-backend
 
 run-backend:
-	flask --app backend run
+	flask --app backend --debug run
 
 run-frontend:
 	npx parcel front/index.html

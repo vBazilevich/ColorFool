@@ -6,4 +6,4 @@ tqdm
 future
 scikit-image
 tensorboardX
-flask
+flask==2.2.2
