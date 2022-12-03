@@ -6,3 +6,4 @@ tqdm
 future
 scikit-image
 tensorboardX
+flask
