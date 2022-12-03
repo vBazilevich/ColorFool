@@ -1,5 +1,7 @@
 from flask import Flask, make_response, request, send_from_directory, send_file
 import ColorFool
+import time
+import os
 
 app = Flask(__name__)
 app.debug = True
@@ -18,10 +20,12 @@ def colorize():
     data = request.files['image']
     # resuling_data = ColorFool.colorize(data.read())
     resuling_data = colorize_stub(data.read())
-    with open('/tmp/colorize-img', 'wb') as f:
+    desired_size = len(resuling_data)
+    with open('/tmp/colorize-img.png', 'wb') as f:
         f.write(resuling_data)
-    # data.save('/tmp/colorize-img')
-    response = make_response(send_file('/tmp/colorize-img'))
+    while os.path.getsize('/tmp/colorize-img.png') != desired_size:
+        time.sleep(0.010)
+    response = make_response(send_file('/tmp/colorize-img.png'))
     response.headers['Content-Type'] = 'image/png'
     return response
 
